@@ -33,6 +33,14 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 
+local config = gears.filesystem.get_xdg_config_home()
+local startup_script = config .. "awesome/scripts/startup.sh"
+
+local function startup()
+    awful.spawn(startup_script)
+end
+startup()
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
