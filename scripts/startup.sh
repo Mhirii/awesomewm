@@ -1,11 +1,14 @@
 #!/bin/bash
 
-function run {
-  if ! pgrep $1 ;
-  then
-    $@&
+function run () {
+  local cmd=$@
+  if ! pgrep -x $cmd ; then
+    $cmd &
   fi
 }
+pkill picom;
+sleep 0.1;
+picom --backend glx &
 sh ~/.screenlayout/reddragon.sh
 run nm-applet --indicator 
 run blueman-applet 
