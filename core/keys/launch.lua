@@ -1,12 +1,16 @@
-local menubar    = require("menubar")
-local userapps   = require("core.user.apps")
-local awful      = require("awful")
+local gears       = require("gears")
+local menubar     = require("menubar")
+local userapps    = require("core.user.apps")
+local awful       = require("awful")
 
-local terminal   = userapps.terminal
-local browser    = userapps.browser
-local editor     = userapps.editor
-local editor_cmd = userapps.editor_cmd
-local visual     = userapps.visual
+local terminal    = userapps.terminal
+local browser     = userapps.browser
+local editor      = userapps.editor
+local editor_cmd  = userapps.editor_cmd
+local visual      = userapps.visual
+local files       = userapps.files
+local colorpicker = userapps.colorpicker
+
 
 
 -- local function run_script(script)
@@ -29,6 +33,51 @@ awful.keyboard.append_global_keybindings({
     end,
     {
       description = "open default browser",
+      group = "launcher"
+    }),
+
+  awful.key({ modkey }, "e",
+    function()
+      awful.spawn(terminal .. " -e " .. files)
+    end,
+    {
+      description = "open " .. files,
+      group = "launcher"
+    }),
+
+  awful.key({ modkey, "Shift" }, "e",
+    function()
+      awful.spawn("thunar")
+    end,
+    {
+      description = "open thunar ",
+      group = "launcher"
+    }),
+
+  awful.key({ modkey }, "v",
+    function()
+      awful.spawn("copyq menu")
+    end,
+    {
+      description = "open clipboard ",
+      group = "launcher"
+    }),
+
+  awful.key({ modkey, "Shift" }, "d",
+    function()
+      awful.spawn("discord")
+    end,
+    {
+      description = "open discord",
+      group = "launcher"
+    }),
+
+  awful.key({ modkey, "Shift" }, "t",
+    function()
+      awful.spawn("telegram-desktop")
+    end,
+    {
+      description = "open telegram",
       group = "launcher"
     }),
 
@@ -77,4 +126,14 @@ awful.keyboard.append_global_keybindings({
       description = "show the menubar",
       group = "launcher"
     }),
+
+  awful.key({ modkey, "Shift" }, "p",
+    function()
+      awful.spawn(colorpicker)
+    end,
+    {
+      description = "open color picker",
+      group = "launcher"
+    }
+  )
 })
