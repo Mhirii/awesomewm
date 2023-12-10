@@ -150,30 +150,13 @@ client.connect_signal("request::titlebars", function(c)
         end),
     }
 
-    awful.titlebar(c).widget = {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        {     -- Middle
-            { -- Title
-                halign = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton(c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton(c),
-            awful.titlebar.widget.ontopbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
+    --         awful.titlebar.widget.floatingbutton(c),
+    --         awful.titlebar.widget.maximizedbutton(c),
+    --         awful.titlebar.widget.stickybutton(c),
+    --         awful.titlebar.widget.ontopbutton(c),
+    --         awful.titlebar.widget.closebutton(c),
+    --         layout = wibox.layout.fixed.horizontal()
+    require("ui.titlebar")
 end)
 --}
 
