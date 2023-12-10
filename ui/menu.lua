@@ -1,6 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local userapps = require("core.user.apps")
+local userapps = require("user_settings").apps
 
 myawesomemenu = {
   { "hotkeys",     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },

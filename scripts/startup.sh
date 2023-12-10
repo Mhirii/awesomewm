@@ -17,6 +17,7 @@ run xclip
 disown
 # flameshot &
 run copyq 
+run pasystray
 sleep 1
 
 run megasync 

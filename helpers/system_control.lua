@@ -2,8 +2,9 @@ local spawn = require("awful.spawn")
 local gears_string = require("gears.string")
 
 
+local syscontrol = {}
 -- ───────────────────────────── Volume control ───────────────────────────── --
-local function get_volume()
+function syscontrol.get_volume()
   spawn.easy_async(
     "pamixer --get-mute --get-volume", function(stdout)
       local muted, volume = table.unpack(gears_string.split(stdout, " "))
@@ -12,7 +13,7 @@ local function get_volume()
   )
 end
 
-local function volume_control(type, value)
+function syscontrol.volume_control(type, value)
   local cmd
   if type == "increase" then
     cmd = "pamixer -i " .. tostring(value)
@@ -28,7 +29,7 @@ local function volume_control(type, value)
 end
 
 -- ─────────────────────────── Brightness control ─────────────────────────── --
-local function get_brightness()
+function syscontrol.get_brightness()
   spawn.easy_async_with_shell(
     "brightnessctl i | grep -o '[0-9]*%'", function(stdout)
       local value = tonumber(stdout:match("(%d+)"))
@@ -37,7 +38,7 @@ local function get_brightness()
   )
 end
 
-local function brightness_control(type, value)
+function syscontrol.brightness_control(type, value)
   local cmd
   if type == "increase" then
     cmd = "brightnessctl set 5%+ -q"
@@ -51,7 +52,7 @@ local function brightness_control(type, value)
 end
 
 -- ─────────────────────────────── Mic toggle ─────────────────────────────── --
-local function get_mic_mute()
+function syscontrol.get_mic_mute()
   spawn.easy_async(
     "pamixer --default-source --get-mute", function(stdout)
       awesome.emit_signal("microphone::mute", stdout:match("true"))
@@ -59,12 +60,8 @@ local function get_mic_mute()
   )
 end
 
-local function mic_toggle(type, value)
+function syscontrol.mic_toggle(type, value)
   spawn.easy_async("pactl set-source-mute @DEFAULT_SOURCE@ toggle", get_mic_mute)
 end
 
-return {
-  volume_control = volume_control,
-  brightness_control = brightness_control,
-  mic_toggle = mic_toggle
-}
+return syscontrol

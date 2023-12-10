@@ -1,6 +1,6 @@
 local awful         = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local userapps      = require("core.user.apps")
+local userapps      = require("user_settings").apps
 
 awful.keyboard.append_global_keybindings({
   awful.key({ modkey, "Shift" }, "slash",

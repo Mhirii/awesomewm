@@ -33,34 +33,28 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 
+-- ───────────────────────────── Startup Script ───────────────────────────── --{
 local config = gears.filesystem.get_xdg_config_home()
 local startup_script = config .. "awesome/scripts/startup.sh"
+awful.spawn(startup_script)
+--}
 
-local function startup()
-    awful.spawn(startup_script)
-end
-startup()
-
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
+-- ────────────────────────────────── Theme ───────────────────────────────── --{
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 local theme = require("default.theme")
 beautiful.init(theme)
+--}
 
 require("core")
 require("ui")
 
--- Menubar configuration
-menubar.utils.terminal = TERMINAL -- Set the terminal for applications that require it
--- }}}
-
--- {{{ Wallpaper
+-- ──────────────────────────────── Wallpaper ─────────────────────────────── --{
 screen.connect_signal("request::wallpaper", function(s)
     awful.wallpaper {
         screen = s,
         widget = {
             {
-                image     = beautiful.wallpaper,
+                image     = config .. "awesome/default/background.png",
                 upscale   = true,
                 downscale = true,
                 widget    = wibox.widget.imagebox,
@@ -72,17 +66,17 @@ screen.connect_signal("request::wallpaper", function(s)
         }
     }
 end)
--- }}}
+--}
 
--- {{{ Mouse bindings
+-- ───────────────────────────── Mouse bindings ───────────────────────────── --{
 awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function() mymainmenu:toggle() end),
-    awful.button({}, 4, awful.tag.viewprev),
-    awful.button({}, 5, awful.tag.viewnext),
+    -- awful.button({}, 4, awful.tag.viewprev),
+    -- awful.button({}, 5, awful.tag.viewnext),
 })
--- }}}
+--}
 
--- {{{ Rules
+-- ────────────────────────────────── Rules ───────────────────────────────── --{
 -- Rules to apply to new clients.
 ruled.client.connect_signal("request::rules", function()
     -- All clients will match this rule.
@@ -132,10 +126,18 @@ ruled.client.connect_signal("request::rules", function()
     --     rule       = { class = "Firefox"     },
     --     properties = { screen = 1, tag = "2" }
     -- }
+    ruled.client.append_rule {
+        rule       = { class = "TelegramDesktop" },
+        properties = { screen = 1, tag = "5" }
+    }
+    ruled.client.append_rule {
+        rule       = { class = "Spotify" },
+        properties = { screen = 1, tag = "6" }
+    }
 end)
--- }}}
+-- }
 
--- {{{ Titlebars
+-- ──────────────────────────────── Titlebars ─────────────────────────────── --{
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
@@ -173,10 +175,9 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
--- }}}
+--}
 
--- {{{ Notifications
-
+-- ────────────────────────────── Notifications ───────────────────────────── --{
 ruled.notification.connect_signal('request::rules', function()
     -- All notifications will match this rule.
     ruled.notification.append_rule {
@@ -191,8 +192,7 @@ end)
 naughty.connect_signal("request::display", function(n)
     naughty.layout.box { notification = n }
 end)
-
--- }}}
+--}
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)

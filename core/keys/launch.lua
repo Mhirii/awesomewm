@@ -1,10 +1,11 @@
 local gears       = require("gears")
 local menubar     = require("menubar")
-local userapps    = require("core.user.apps")
+local userapps    = require("user_settings").apps
 local awful       = require("awful")
 
 local terminal    = userapps.terminal
 local browser     = userapps.browser
+local dev_browser = userapps.dev_browser
 local editor      = userapps.editor
 local editor_cmd  = userapps.editor_cmd
 local visual      = userapps.visual
@@ -33,6 +34,15 @@ awful.keyboard.append_global_keybindings({
     end,
     {
       description = "open default browser",
+      group = "launcher"
+    }),
+
+  awful.key({ modkey, "Shift" }, "b",
+    function()
+      awful.spawn(dev_browser)
+    end,
+    {
+      description = "open dev browser",
       group = "launcher"
     }),
 

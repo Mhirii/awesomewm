@@ -1,15 +1,15 @@
+
 local awful     = require("awful")
 local wibox     = require("wibox")
 local beautiful = require("beautiful")
 local dpi       = require("beautiful").xresources.apply_dpi
 local helpers   = require("helpers")
 
--- require("ui.bar.components.systray")
-
 local bluetooth = require("ui.bar.components.bluetooth")
 local layoutbox = require("ui.bar.components.layoutbox")
 local promptbox = require("ui.bar.components.promptbox")
 local tagslist  = require("ui.bar.components.tagslist")
+require("ui.bar.components.systray")
 local tasklist  = require("ui.bar.components.tasklist")
 local textclock = require("ui.bar.components.time")
 local wifi      = require("ui.bar.components.wifi")
@@ -97,10 +97,14 @@ screen.connect_signal("request::desktop_decoration",
           mytextclock,
           s.layoutbox,
         },
+
         {
-          tray_dispatcher,
-          right = dpi(5),
-          widget = wibox.container.margin,
+          {
+            tray_dispatcher,
+            right = dpi(5),
+            widget = wibox.container.margin,
+          },
+          layout = wibox.layout.fixed.horizontal,
         },
       }
     }
