@@ -17,10 +17,23 @@ theme.material_icons        = "Material Icons"
 theme.font_size             = "12"
 theme.font                  = theme.font_name .. " " .. theme.font_size
 
-theme.bg_normal             = "#101419"
-theme.bg_focus              = "#101419"
-theme.bg_urgent             = "#e5646a"
-theme.bg_minimize           = "#1c252c"
+-- base colors
+theme.black                 = '#101419'
+theme.dimblack              = '#1c252c'
+theme.light_black           = '#282e33'
+theme.grey                  = '#6b7078'
+theme.red                   = '#e05f65'
+theme.yellow                = '#f1cf8a'
+theme.magenta               = '#c68aee'
+theme.green                 = '#78dba9'
+theme.blue                  = '#70a5eb'
+theme.cyan                  = '#74bee9'
+theme.aqua                  = '#79c3ee'
+
+theme.bg_normal             = theme.black
+theme.bg_focus              = theme.black
+theme.bg_urgent             = theme.red
+theme.bg_minimize           = theme.dimblack
 theme.bg_systray            = theme.bg_normal
 
 theme.fg_normal             = "#b9beca"
