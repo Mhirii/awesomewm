@@ -25,7 +25,7 @@ client.connect_signal("request::titlebars", function(c)
 
   local top_titlebar = awful.titlebar(c, {
     height    = 20,
-    size      = 35,
+    size      = 20,
     position  = "left",
     bg_normal = beautiful.black,
     -- bg_normal = '#00001180',
@@ -56,10 +56,10 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.fixed.vertical()
       },
       widget = wibox.container.margin,
-      top = 2,
+      top = 4,
       bottom = 0,
-      right = 6,
-      left = 3
+      right = 2,
+      left = 2
     },
     {
       -- Middle
@@ -79,9 +79,9 @@ client.connect_signal("request::titlebars", function(c)
       },
       widget = wibox.container.margin,
       top = 0,
-      bottom = 0,
-      right = 6,
-      left = 3,
+      bottom = 4,
+      right = 2,
+      left = 2,
     },
     layout = wibox.layout.align.vertical
   }

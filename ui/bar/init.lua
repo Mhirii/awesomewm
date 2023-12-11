@@ -4,8 +4,6 @@ local beautiful = require("beautiful")
 local dpi       = require("beautiful").xresources.apply_dpi
 local helpers   = require("helpers")
 
--- require("ui.bar.components.systray")
-
 local bluetooth = require("ui.bar.components.bluetooth")
 local layoutbox = require("ui.bar.components.layoutbox")
 local promptbox = require("ui.bar.components.promptbox")
@@ -36,47 +34,6 @@ screen.connect_signal("request::desktop_decoration",
     s.taglist = tagslist(s)
     s.mytasklist = tasklist(s)
 
-    local tray_dispatcher = wibox.widget {
-      image = beautiful.tray_chevron_up,
-      forced_height = 14,
-      forced_width = 14,
-      valign = 'center',
-      halign = 'center',
-      widget = wibox.widget.imagebox,
-    }
-
-    local tray_dispatcher_tooltip = helpers.make.popup_tooltip('Press to toggle the systray panel', function(d)
-      return awful.placement.bottom_right(d, {
-        margins = {
-          bottom = beautiful.bar_height + beautiful.useless_gap * 2,
-          right = beautiful.useless_gap * 33,
-        }
-      })
-    end)
-
-    tray_dispatcher:add_button(awful.button({}, 1, function()
-      awesome.emit_signal('tray::toggle')
-      tray_dispatcher_tooltip.hide()
-
-      if s.tray.popup.visible then
-        tray_dispatcher.image = beautiful.tray_chevron_down
-      else
-        tray_dispatcher.image = beautiful.tray_chevron_up
-      end
-    end))
-
-    tray_dispatcher_tooltip.attach_to_object(tray_dispatcher)
-
-    local function mkcontainer(template)
-      return wibox.widget {
-        template,
-        left = dpi(8),
-        right = dpi(8),
-        top = dpi(6),
-        bottom = dpi(6),
-        widget = wibox.container.margin,
-      }
-    end
     -- Create the wibox
     s.mywibox = awful.wibar {
       position = "top",
@@ -93,14 +50,11 @@ screen.connect_signal("request::desktop_decoration",
         s.mytasklist, -- Middle widget
         {             -- Right widgets
           layout = wibox.layout.fixed.horizontal,
-          wibox.widget.systray(),
+          wibox.widget.systray({
+            base_size = 4,
+          }),
           mytextclock,
           s.layoutbox,
-        },
-        {
-          tray_dispatcher,
-          right = dpi(5),
-          widget = wibox.container.margin,
         },
       }
     }
