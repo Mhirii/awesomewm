@@ -13,7 +13,7 @@ local theme                                     = {}
 
 theme.font_name                                 = "Monaspace Neon"
 theme.nerd_font                                 = "JetbrainsMono Nerd Font"
-theme.material_icons                            = "Material Icons"
+theme.material_icons                            = "Material Design Icons"
 theme.font_size                                 = "12"
 theme.font                                      = theme.font_name .. " " .. theme.font_size
 
