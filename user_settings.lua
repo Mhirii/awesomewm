@@ -2,7 +2,7 @@ local gears       = require("gears")
 local config_dir  = gears.filesystem.get_xdg_config_home()
 local scripts     = config_dir .. "awesome/scripts/"
 
-local terminal    = "alacritty"
+local terminal    = "alacritty --config-file " .. config_dir .. "awesome/conf/alacritty.yml"
 local editor      = os.getenv("EDITOR") or "nvim"
 local editor_cmd  = terminal .. " -e " .. editor
 local browser     = os.getenv("BROWSER") or "firedragon"
