@@ -21,9 +21,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
+-- ───────────────────────────── Error Handling ───────────────────────────── --{
 naughty.connect_signal("request::display_error", function(message, startup)
     naughty.notification {
         urgency = "critical",
@@ -31,7 +29,7 @@ naughty.connect_signal("request::display_error", function(message, startup)
         message = message
     }
 end)
--- }}}
+--}
 
 -- ───────────────────────────── Startup Script ───────────────────────────── --{
 local config = gears.filesystem.get_xdg_config_home()
@@ -181,3 +179,8 @@ end)
 client.connect_signal("mouse::enter", function(c)
     c:activate { context = "mouse_enter", raise = false }
 end)
+
+---@diagnostic disable: param-type-mismatch
+collectgarbage("setpause", 110)
+collectgarbage("setstepmul", 1000)
+---@diagnostic enable: param-type-mismatch
