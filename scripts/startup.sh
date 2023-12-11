@@ -8,7 +8,7 @@ function run () {
 }
 pkill picom;
 sleep 0.1;
-picom --backend glx &
+picom --backend glx --config ~/.config/awesome/conf/picom.conf &
 sh ~/.screenlayout/reddragon.sh
 run nm-applet --indicator 
 run blueman-applet 
