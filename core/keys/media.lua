@@ -1,6 +1,8 @@
 local awful = require("awful")
 local playerctl = require("signals.playerctl")
-local system_control = require("helpers.system_control")
+-- local system_control = require("helpers.system_control")
+local helpers = require("helpers")
+local system_control = helpers.system_control
 
 awful.keyboard.append_global_keybindings({
   awful.key({}, "XF86AudioRaiseVolume",
@@ -19,7 +21,7 @@ awful.keyboard.append_global_keybindings({
     }),
   awful.key(
     {}, "XF86AudioMute", function()
-      system_control.volume_control("mute")
+      system_control.volume_control("mute", 0)
     end, {
       description = "mute volume",
       group = "fn keys"

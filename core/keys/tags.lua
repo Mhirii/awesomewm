@@ -15,10 +15,20 @@ awful.keyboard.append_global_keybindings({
       group = "tag"
     }),
 
-  awful.key({ modkey }, "Escape",
+  awful.key({ modkey }, "Tab",
     awful.tag.history.restore,
     {
       description = "go back",
       group = "tag"
-    })
+    }),
+
+  awful.key({ modkey }, "u",
+    function()
+      awful.client.urgent.jumpto()
+    end,
+    {
+      description = "jump to urgent client",
+      group = "tag"
+    }
+  )
 })
