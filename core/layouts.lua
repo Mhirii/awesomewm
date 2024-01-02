@@ -16,10 +16,9 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 tag.connect_signal("request::default_layouts", function()
-  awful.layout.append_default_layouts({
-    awful.layout.suit.tile,
-    awful.layout.suit.max,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
-  })
+	awful.layout.append_default_layouts({
+		awful.layout.suit.tile,
+		awful.layout.suit.max,
+		awful.layout.suit.magnifier,
+	})
 end)
