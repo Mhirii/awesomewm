@@ -82,7 +82,7 @@ theme.menu_submenu_icon = themes_path .. "default/submenu.png"
 theme.menu_height = dpi(15)
 theme.menu_width = dpi(160)
 
-theme.bar_height = 40
+theme.bar_height = 60
 theme.systray_icon_spacing = 4
 
 -- You can add as many variables as
@@ -137,6 +137,23 @@ theme.layout_cornerne = themes_path .. "default/layouts/cornernew.png"
 theme.layout_cornersw = themes_path .. "default/layouts/cornersww.png"
 theme.layout_cornerse = themes_path .. "default/layouts/cornersew.png"
 
+theme.tag_preview_widget_border_radius = 1
+theme.tag_preview_client_border_radius = 1
+theme.tag_preview_client_opacity = 1
+theme.tag_preview_client_bg = theme.dimblack
+theme.tag_preview_client_border_color = theme.green
+theme.tag_preview_client_border_width = 1
+theme.tag_preview_widget_bg = theme.dimblack
+theme.tag_preview_widget_border_color = theme.grey
+theme.tag_preview_widget_border_width = 1
+theme.tag_preview_widget_margin = 0 -- The margin of the widget
+
+theme.task_preview_widget_border_radius = 4
+theme.task_preview_widget_bg = "#000000"
+theme.task_preview_widget_border_color = theme.light_black
+theme.task_preview_widget_border_width = 2
+theme.task_preview_widget_margin = 4
+
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.grey, theme.bg_focus)
 
@@ -151,8 +168,6 @@ rnotification.connect_signal("request::rules", function()
 		properties = { bg = "#ff0000", fg = "#ffffff" },
 	})
 end)
-
-theme = require("theme.decay.theme")
 
 return theme
 
