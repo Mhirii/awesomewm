@@ -17,6 +17,7 @@ local naughty = require("naughty")
 local ruled = require("ruled")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local cairo = require("lgi").cairo
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -43,13 +44,15 @@ local theme = require("default.theme")
 beautiful.init(theme)
 --}
 
--- ──────────────────────────────── Titlebars ─────────────────────────────── --{
+-- ──────────────────────────────── titlebars ─────────────────────────────── --{
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
 	require("ui.titlebar")
 end)
 --}
---
+
+-- ───────────────────────────────── Imports ──────────────────────────────── --{
+
 require("core")
 require("ui")
 
@@ -78,8 +81,6 @@ awful.mouse.append_global_mousebindings({
 	awful.button({}, 3, function()
 		mymainmenu:toggle()
 	end),
-	-- awful.button({}, 4, awful.tag.viewprev),
-	-- awful.button({}, 5, awful.tag.viewnext),
 })
 --}
 
