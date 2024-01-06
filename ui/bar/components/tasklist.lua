@@ -1,24 +1,27 @@
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
+require("ui.taskpreview")
 
 local function tasks(s)
 	return awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
 		layout = {
-			spacing = 10,
 			spacing_widget = {
 				{
 					forced_width = 5,
-					shape = gears.shape.circle,
+					forced_height = 24,
+					thickness = 1,
+					color = "#777777",
 					widget = wibox.widget.separator,
 				},
 				valign = "center",
 				halign = "center",
 				widget = wibox.container.place,
 			},
-			layout = wibox.layout.flex.horizontal,
+			spacing = 1,
+			layout = wibox.layout.fixed.horizontal,
 		},
 		buttons = {
 			awful.button({}, 1, function(c)
@@ -37,23 +40,32 @@ local function tasks(s)
 
 		widget_template = {
 			{
+				wibox.widget.base.make_widget(),
+				forced_height = 5,
+				id = "background_role",
+				widget = wibox.container.background,
+			},
+			{
 				{
-					{
-						{
-							id = "icon_role",
-							widget = wibox.widget.imagebox,
-						},
-						margins = 2,
-						widget = wibox.container.margin,
-					},
-					layout = wibox.layout.fixed.horizontal,
+					id = "clienticon",
+					widget = awful.widget.clienticon,
 				},
-				left = 10,
-				right = 10,
+				margins = 5,
 				widget = wibox.container.margin,
 			},
-			id = "background_role",
-			widget = wibox.container.background,
+			nil,
+			create_callback = function(self, c, index, objects) --luacheck: no unused args
+				self:get_children_by_id("clienticon")[1].client = c
+
+				-- BLING: Toggle the popup on hover and disable it off hover
+				self:connect_signal("mouse::enter", function()
+					awesome.emit_signal("bling::task_preview::visibility", s, true, c)
+				end)
+				self:connect_signal("mouse::leave", function()
+					awesome.emit_signal("bling::task_preview::visibility", s, false, c)
+				end)
+			end,
+			layout = wibox.layout.align.vertical,
 		},
 	})
 end

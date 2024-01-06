@@ -2,6 +2,8 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local userapps = require("user_settings").apps
 
+local hotkeys_popup = require("awful.hotkeys_popup")
+
 myawesomemenu = {
 	{
 		"hotkeys",

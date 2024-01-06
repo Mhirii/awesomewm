@@ -1,5 +1,12 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 local wibox = require("wibox")
+
+local theme = require("theme.decay.theme")
+require("theme.decay.shapes")
+require("theme.decay.styles")
+
+local gears = require("gears")
 
 local function create_callback(self, c3, index, s)
 	self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
@@ -28,21 +35,51 @@ local function create_callback(self, c3, index, s)
 	end)
 end
 
-local function update_callback(self, c3, index)
+local function update_callback(self, c3, index, objects)
 	self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
+	-- local background_container = self:get_children_by_id("bg_1")[1]
+	-- local t = objects[1]
+	-- if t.selected then
+	-- 	background_container.fg = theme.fg_focus -- Apply focused background color
+	-- else
+	-- 	background_container.fg = theme.fg_normal -- Apply default background color
+	-- end
 end
 
-local function tags(s)
+local taglist_buttons = gears.table.join(
+	awful.button({}, 1, function(t)
+		t:view_only()
+	end),
+	awful.button({ modkey }, 1, function(t)
+		if client.focus then
+			client.focus:move_to_tag(t)
+		end
+	end),
+	awful.button({}, 3, awful.tag.viewtoggle),
+	awful.button({ modkey }, 3, function(t)
+		if client.focus then
+			client.focus:toggle_tag(t)
+		end
+	end),
+	awful.button({}, 4, function(t)
+		awful.tag.viewnext(t.screen)
+	end),
+	awful.button({}, 5, function(t)
+		awful.tag.viewprev(t.screen)
+	end)
+)
+
+local function tags(s, cr)
 	return awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
 		layout = {
 			spacing = 2,
 			spacing_widget = {
-				color = "#dddddd",
+				color = theme.black,
 				widget = wibox.widget.separator,
 			},
-			layout = wibox.layout.fixed.horizontal,
+			layout = wibox.layout.flex.horizontal,
 		},
 		widget_template = {
 			{
@@ -51,18 +88,31 @@ local function tags(s)
 						{
 							id = "index_role",
 							widget = wibox.widget.textbox,
+							opacity = 0,
 						},
-						margins = 4,
 						widget = wibox.container.margin,
+						margins = -16,
+					},
+					{
+						{
+							id = "text_role",
+							widget = wibox.widget.textbox,
+						},
+						widget = wibox.container.margin,
+						left = 12,
+						right = 12,
 					},
 					layout = wibox.layout.fixed.horizontal,
 				},
-				left = 4,
-				right = 4,
-				widget = wibox.container.margin,
+				id = "bg_1",
+				left = 2,
+				right = 2,
+				widget = wibox.container.background,
 			},
 			id = "background_role",
 			widget = wibox.container.background,
+			margins = 4,
+
 			-- Add support for hover colors and an index label
 			create_callback = create_callback, --luacheck: no unused args
 			update_callback = update_callback,
@@ -70,4 +120,5 @@ local function tags(s)
 		buttons = taglist_buttons,
 	})
 end
+
 return tags
