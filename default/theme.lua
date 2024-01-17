@@ -152,7 +152,7 @@ rnotification.connect_signal("request::rules", function()
 	})
 end)
 
-theme = require("theme.decay.theme")
+theme = require("theme.tokyonight.theme")
 
 return theme
 
